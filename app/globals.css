@@ -1,0 +1,266 @@
+@import "tailwindcss";
+
+/* =============================================
+   THE NEW REALITY — Design Tokens & Base Styles
+   ============================================= */
+
+/* --- CORE PALETTE --- */
+:root {
+  --ink: #1a1a18;
+  --ink-soft: #4a4a45;
+  --ink-mute: #8a8a82;
+  --ink-light: #b5b5ad;
+  --paper: #f5f3ee;
+  --paper-warm: #ede9e0;
+  --rust: #b8451a;
+  --rust-deep: #8a2e0e;
+  --rust-light: #f0ede8;
+  --rust-muted: rgba(184, 69, 26, 0.08);
+  --white: #ffffff;
+  --line: rgba(26, 26, 24, 0.12);
+  --line-heavy: rgba(26, 26, 24, 0.25);
+  --success: #2d6a4f;
+  --error: #c1292e;
+  --warning: #b88a1a;
+
+  /* --- TYPOGRAPHY --- */
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'Inter', system-ui, sans-serif;
+
+  /* --- SPACING --- */
+  --space-section: 6.25rem;   /* 100px */
+  --space-block: 3rem;        /* 48px */
+  --space-element: 1.5rem;    /* 24px */
+
+  /* --- LAYOUT --- */
+  --max-width: 72rem;
+  --max-width-narrow: 48rem;
+  --max-width-wide: 80rem;
+  --header-height: 4rem;
+
+  /* --- RADIUS --- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* --- SHADOWS --- */
+  --shadow-sm: 0 1px 2px rgba(26, 26, 24, 0.06);
+  --shadow-md: 0 4px 6px rgba(26, 26, 24, 0.08);
+  --shadow-lg: 0 10px 15px rgba(26, 26, 24, 0.1);
+
+  /* --- PLATFORM DEFAULTS (overridden by platform classes) --- */
+  --platform-bg: var(--paper);
+  --platform-accent: var(--rust);
+  --platform-accent-hover: var(--rust-deep);
+  --platform-surface: var(--white);
+  --platform-card-bg: var(--white);
+  --platform-text: var(--ink);
+  --platform-text-soft: var(--ink-soft);
+}
+
+/* --- TYPOGRAPHY SCALE --- */
+/* Using Tailwind v4 @theme for proper integration */
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-mute: var(--ink-mute);
+  --color-ink-light: var(--ink-light);
+  --color-paper: var(--paper);
+  --color-paper-warm: var(--paper-warm);
+  --color-rust: var(--rust);
+  --color-rust-deep: var(--rust-deep);
+  --color-rust-light: var(--rust-light);
+  --color-rust-muted: var(--rust-muted);
+  --color-white: var(--white);
+  --color-line: var(--line);
+  --color-line-heavy: var(--line-heavy);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
+  --color-platform-bg: var(--platform-bg);
+  --color-platform-accent: var(--platform-accent);
+  --color-platform-accent-hover: var(--platform-accent-hover);
+  --color-platform-surface: var(--platform-surface);
+  --color-platform-card-bg: var(--platform-card-bg);
+  --color-platform-text: var(--platform-text);
+  --color-platform-text-soft: var(--platform-text-soft);
+
+  --font-serif: 'DM Serif Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+
+/* --- RESET & BASE --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- PLATFORM THEMING --- */
+.platform-media {
+  --platform-bg: var(--paper-warm);
+  --platform-accent: var(--rust);
+  --platform-accent-hover: var(--rust-deep);
+  --platform-surface: var(--white);
+  --platform-card-bg: var(--rust-light);
+}
+
+.platform-invest {
+  --platform-bg: var(--paper);
+  --platform-accent: var(--ink);
+  --platform-accent-hover: var(--ink-soft);
+  --platform-surface: var(--white);
+  --platform-card-bg: var(--white);
+}
+
+/* --- PROSE STYLES (for MDX-rendered content) --- */
+.prose {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+  font-family: var(--serif);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.prose h1 {
+  font-size: clamp(2.25rem, 4vw, 3.75rem);
+  line-height: 1.1;
+  margin-bottom: 2rem;
+}
+
+.prose h2 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.15;
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose h3 {
+  font-size: 1.375rem;
+  line-height: 1.3;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose p {
+  margin-bottom: 1.25rem;
+}
+
+.prose a {
+  color: var(--rust);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.prose a:hover {
+  color: var(--rust-deep);
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--rust);
+  margin: 2rem 0;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  font-style: italic;
+  color: var(--ink);
+}
+
+.prose ul,
+.prose ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 2.5rem 0;
+}
+
+.prose strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+}
+
+/* --- UTILITY CLASSES --- */
+.section-padding {
+  padding: var(--space-section) 3rem;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 4.5rem 1.5rem;
+  }
+}
+
+/* --- SKIP LINK --- */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* --- SCROLLBAR --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink-light);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-mute);
+}

@@ -1,6 +1,7 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SkipLink } from "@/components/layout/SkipLink";
+import { CookieConsent } from "@/components/shared/CookieConsent";
 
 export default function SiteLayout({
   children,
@@ -15,6 +16,7 @@ export default function SiteLayout({
         {children}
       </main>
       <Footer />
+      <CookieConsent />
     </>
   );
 }

@@ -8,6 +8,7 @@ import type { NavItem } from "@/data/navigation";
 function Dropdown({ item }: { item: NavItem }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<number>(0);
   const pathname = usePathname();
   const isActive = pathname.startsWith(item.href);
 
@@ -21,14 +22,27 @@ function Dropdown({ item }: { item: NavItem }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  function handleMouseEnter() {
+    window.clearTimeout(closeTimer.current);
+    setOpen(true);
+  }
+
+  function handleMouseLeave() {
+    closeTimer.current = window.setTimeout(() => setOpen(false), 150);
+  }
+
   return (
-    <div ref={ref} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <button
-        onClick={() => setOpen(!open)}
-        className={`flex items-center gap-1 text-[13px] font-normal tracking-[0.02em] transition-colors ${
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <Link
+        href={item.href}
+        className={`flex items-center gap-1 pb-1 text-[13px] font-normal tracking-[0.02em] transition-colors ${
           isActive ? "text-ink" : "text-ink-soft hover:text-ink"
         }`}
-        aria-expanded={open}
       >
         {item.label}
         <svg
@@ -39,37 +53,41 @@ function Dropdown({ item }: { item: NavItem }) {
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
-      </button>
+      </Link>
       {open && (
-        <div className="absolute left-0 top-full mt-2 min-w-[220px] rounded-sm border border-line bg-white py-2 shadow-lg">
-          {item.children?.map((child) => (
-            <div key={child.href}>
-              <Link
-                href={child.href}
-                className={`block px-5 py-2.5 text-[13px] transition-colors hover:bg-rust-muted ${
-                  pathname === child.href ? "text-rust" : "text-ink-soft"
-                }`}
-                onClick={() => setOpen(false)}
-              >
-                {child.label}
-                {child.isCTA && (
-                  <span className="ml-2 text-[11px] uppercase tracking-[0.1em] text-rust">Apply</span>
-                )}
-              </Link>
-              {child.children?.map((sub) => (
+        <div className="absolute left-0 top-full pt-1">
+          <div className="min-w-[220px] rounded-sm border border-line bg-white py-2 shadow-lg">
+            {item.children?.map((child) => (
+              <div key={child.href}>
                 <Link
-                  key={sub.href}
-                  href={sub.href}
-                  className={`block pl-10 pr-5 py-2 text-[13px] transition-colors hover:bg-rust-muted ${
-                    pathname === sub.href ? "text-rust" : "text-ink-mute"
+                  href={child.href}
+                  className={`block px-5 py-2.5 text-[13px] transition-colors hover:bg-rust-muted ${
+                    pathname === child.href ? "text-rust" : "text-ink-soft"
                   }`}
                   onClick={() => setOpen(false)}
                 >
-                  {sub.label}
+                  {child.label}
+                  {child.isCTA && (
+                    <span className="ml-2 text-[11px] uppercase tracking-[0.1em] text-rust">
+                      Apply
+                    </span>
+                  )}
                 </Link>
-              ))}
-            </div>
-          ))}
+                {child.children?.map((sub) => (
+                  <Link
+                    key={sub.href}
+                    href={sub.href}
+                    className={`block pl-10 pr-5 py-2 text-[13px] transition-colors hover:bg-rust-muted ${
+                      pathname === sub.href ? "text-rust" : "text-ink-mute"
+                    }`}
+                    onClick={() => setOpen(false)}
+                  >
+                    {sub.label}
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

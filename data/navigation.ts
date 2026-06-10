@@ -12,17 +12,7 @@ export const mainNav: NavItem[] = [
     href: "/media",
     children: [
       { label: "Episodes", href: "/media/episodes" },
-      { label: "Transcripts", href: "/media/transcripts" },
-      {
-        label: "Events & Workshops",
-        href: "/media/events",
-        children: [{ label: "Upcoming Events", href: "/media/events/upcoming" }],
-      },
-      { label: "Webinars", href: "/media/webinars" },
-      { label: "The History", href: "/media/history" },
-      { label: "False Binaries", href: "/media/false-binaries" },
-      { label: "Dear Lisa", href: "/media/dear-lisa" },
-      { label: "Talking to Boomers", href: "/media/talking-to-boomers" },
+      { label: "Events & Workshops", href: "/media/events" },
       { label: "Subscribe", href: "/media/subscribe" },
       { label: "Speaking Requests", href: "/media/speaking" },
     ],
@@ -53,10 +43,7 @@ export const mainNav: NavItem[] = [
 
 export const mediaSubNav: NavItem[] = [
   { label: "Episodes", href: "/media/episodes" },
-  { label: "Transcripts", href: "/media/transcripts" },
   { label: "Events", href: "/media/events" },
-  { label: "Webinars", href: "/media/webinars" },
-  { label: "History", href: "/media/history" },
   { label: "Subscribe", href: "/media/subscribe" },
 ];
 
